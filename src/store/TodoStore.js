@@ -1,27 +1,80 @@
-import {  decorate, observable, autorun} from 'mobx'
+import {
+  decorate,
+  observable,
+  action,
+  autorun,
+  computed
+} from 'mobx'
 import React from 'react'
 
-class TodoStore{
-  todos = ["buy milk", "buy food"]
-  filter = ''
+class Todo {
+  constructor(value){
+    this.value = value
+  }
+
+  id =  Date.now()
+  completed= false
+
+  finishTodo(todo){
+    todo.completed = !todo.completed
+  }
 }
 
-// 实现 console 访问 store 对象
-let store = window.store = new TodoStore()
+class TodoStore{
+  todos = []
+  filter = ''
 
-// 使用示例:
+  get filteredTodos(){
+    return this.todos.filter((todo)=>
+      todo.value.indexOf(this.filter) >=0 || !this.filter
+    )
+  }
+  // define an action
+  createTodo(e){
+    if(e.nativeEvent.keyCode === 13){
+      let newTodo = new Todo(e.nativeEvent.target.value)
+      this.todos.push(newTodo)
+      e.target.value = ''
+    }
+  }
+
+  clearFinishedTodo = ()=>{
+    // user store.replace() to modify store itself
+    this.todos.replace( this.todos.filter((todo)=> !todo.completed) )
+  }
+}
+
+// 使用 decorate 包装Store类
 // decorate(stateObj, {
 //  key1: observable,
 // })
 
-decorate(store, {
+decorate( Todo, {
+  value: observable,
+  completed: observable,
+  finishTodo: action
+})
+
+decorate( TodoStore, {
   todos: observable,
   filter: observable,
+  filteredTodos: computed,
+  createTodo:action,
+  clearFinishedTodo:action
 })
+
+
+
+// 实现 console 访问 store 对象
+let todoStore = window.store = new TodoStore()
+
+let buyFoodTodo = new Todo("buy food")
+let homeworkTodo= new Todo("do homework")
+
+todoStore.todos.push(buyFoodTodo)
+todoStore.todos.push(homeworkTodo)
 
 autorun(()=>{
-  console.log("autorun is triggered")
-  console.log(store.todos[0])
 })
 
-export default store
+export default todoStore

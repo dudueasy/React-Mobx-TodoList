@@ -1,6 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import store from './store/TodoStore'
+import TodoList from './component/TodoList'
+import store from "./store/TodoStore"
 
 export default class App extends React.Component {
   render() {
@@ -8,6 +8,9 @@ export default class App extends React.Component {
       <h1>
         Mobx Todolist
       </h1>
+
+      <TodoList store={store} />
+
     </div>
   }
 }
