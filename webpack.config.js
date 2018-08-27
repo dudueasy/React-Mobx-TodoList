@@ -27,6 +27,11 @@ let config  = {
         exclude: [
           path.join(__dirname, '../node_modules')
         ]
+      },
+      // define css loader
+      {
+        test: /\.css$/, // Only .css files
+        loader: 'style-loader!css-loader' // Run both loaders
       }
     ]
   },
@@ -35,7 +40,7 @@ let config  = {
     )
   ],
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.css']
   }
 }
 
@@ -63,12 +68,13 @@ if  (isDev){
       index:'/public/index.html'
     },
   }
+
   config.entry = {
     app:[
       'react-hot-loader/patch',
       path.join(__dirname, './src/app.js')
-    ] }
-
+    ]
+  }
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
 }
 

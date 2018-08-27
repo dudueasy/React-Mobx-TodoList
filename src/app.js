@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
 import App from './App.jsx'
+import './style.css'
 
 const root = document.getElementById('root')
 

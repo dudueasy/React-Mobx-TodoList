@@ -4,7 +4,7 @@ import store from "./store/TodoStore"
 
 export default class App extends React.Component {
   render() {
-    return <div>
+    return <div className='todolist-wrapper'>
       <h1>
         Mobx Todolist
       </h1>
