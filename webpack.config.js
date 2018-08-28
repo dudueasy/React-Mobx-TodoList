@@ -6,11 +6,10 @@ let config  = {
   entry: {
     app: path.join(__dirname, './src/app.js')
   },
-
   output: {
     filename: '[name].[hash].js',
     path: path.join(__dirname, './dist'),
-    // publicPath: '/public/',
+    publicPath: '/public/',
   },
   module: {
     rules: [
@@ -55,7 +54,7 @@ if  (isDev){
     host: '0.0.0.0',
     port: '8888',
     // 定义 devServer 服务器服务/工作的目录 (设置为和webpack配置中的 output.path 一致即可)
-    contentBase:path.join(__dirname, './dist'),
+    contentBase:path.join(__dirname, './dist/public/'),
     // 开启热模块替换 (需要在react app中进行配置, 否则会报错)
     hot: true,
     // 错误信息显示
