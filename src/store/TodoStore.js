@@ -30,12 +30,9 @@ class TodoStore{
     )
   }
   // define an action
-  createTodo(e){
-    if(e.nativeEvent.keyCode === 13){
-      let newTodo = new Todo(e.nativeEvent.target.value)
+  createTodo(value){
+      let newTodo = new Todo(value)
       this.todos.push(newTodo)
-      e.target.value = ''
-    }
   }
 
   clearFinishedTodo = ()=>{

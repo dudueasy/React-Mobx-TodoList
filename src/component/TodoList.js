@@ -11,7 +11,10 @@ const TodoList = observer(
     }
 
     createNew = (e)=>{
-      this.props.store.createTodo(e)
+      if(e.nativeEvent.keyCode === 13){
+        this.props.store.createTodo(e.target.value)
+        e.target.value = ''
+      }
     }
 
     render(){
